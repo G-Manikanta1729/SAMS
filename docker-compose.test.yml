@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  mongodb-test:
+    image: mongo:6
+    container_name: sams-mongodb-test
+    ports:
+      - "27018:27017"
+    environment:
+      MONGO_INITDB_DATABASE: sams_test
+
+  backend-test:
+    build: ./backend
+    container_name: sams-backend-test
+    ports:
+      - "5001:5000"
+    depends_on:
+      - mongodb-test
+    environment:
+      NODE_ENV: test
+      MONGODB_URI: mongodb://mongodb-test:27017/sams_test
