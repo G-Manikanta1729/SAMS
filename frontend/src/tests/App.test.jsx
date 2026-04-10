@@ -1,10 +1,19 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { describe, test, expect, vi } from 'vitest';
-import Login from '../pages/Login';
 
-// Mock axios
-vi.mock('axios');
+// Mock the AuthContext BEFORE importing Login
+vi.mock('../context/AuthContext', () => ({
+  useAuth: () => ({
+    user: null,
+    login: vi.fn(),
+    logout: vi.fn(),
+    loading: false
+  })
+}));
+
+// Now import Login after the mock is set up
+import Login from '../pages/Login';
 
 describe('SAMS Frontend Tests', () => {
   
