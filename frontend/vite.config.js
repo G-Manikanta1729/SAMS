@@ -5,12 +5,17 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 3000,
-    open: true,
     proxy: {
-      '/api': {
-        target: 'http://localhost:5000',
-        changeOrigin: true
-      }
+      '/api': 'http://localhost:5000'
+    }
+  },
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: './src/test/setup.js',
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'html', 'lcov']
     }
   }
 })
