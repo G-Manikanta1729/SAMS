@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon server.js",
     "start": "node server.js",
-    "test": "jest --ci --coverage --testResultsProcessor=jest-junit",
+    "test": "jest --ci --coverage --testResultsProcessor=jest-junit --forceExit",
     "test:watch": "jest --watch",
     "test:integration": "jest --testMatch='**/tests/integration/**/*.test.js' --runInBand",
     "lint": "echo \"No linter configured\"",
