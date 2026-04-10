@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import Login from '../pages/Login';
 
 // Mock axios
-jest.mock('axios');
+vi.mock('axios');
 
 describe('SAMS Frontend Tests', () => {
   
