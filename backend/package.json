@@ -16,7 +16,12 @@
     "testEnvironment": "node",
     "testMatch": ["**/tests/**/*.test.js"],
     "coveragePathIgnorePatterns": ["/node_modules/"],
-    "testTimeout": 30000
+    "testTimeout": 30000,
+    "reporters": ["default", "jest-junit"],
+    "jest-junit": {
+      "outputDirectory": ".",
+      "outputName": "test-results.xml"
+    }
   },
   "keywords": [],
   "author": "",
