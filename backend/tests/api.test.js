@@ -7,7 +7,7 @@ const testStudent = {
   rollNumber: "TEST001",
   branch: "IT",
   semester: 3,
-  email: "test@test.com",
+  email: `test${Date.now()}@test.com`,
   password: "test123"
 };
 
