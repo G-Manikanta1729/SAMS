@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon server.js",
     "start": "node server.js",
-    "test": "jest --ci --coverage --testResultsProcessor=jest-junit --forceExit",
+    "test": "jest --ci --coverage --forceExit",
     "test:watch": "jest --watch",
     "test:integration": "echo \"No integration tests configured\"",
     "lint": "echo \"No linter configured\"",
@@ -18,11 +18,11 @@
     "coveragePathIgnorePatterns": ["/node_modules/"],
     "testTimeout": 30000,
     "reporters": ["default", "jest-junit"],
-    "jest-junit": {
+  },
+  "jest-junit": {
       "outputDirectory": ".",
       "outputName": "test-results.xml"
-    }
-  },
+    },
   "keywords": [],
   "author": "",
   "license": "ISC",
