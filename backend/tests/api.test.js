@@ -1,16 +1,6 @@
 const request = require('supertest');
 const app = require('../server');
 
-// Mock data
-const testStudent = {
-  name: "Test Student",
-  rollNumber: "TEST001",
-  branch: "IT",
-  semester: 3,
-  email: `test${Date.now()}@test.com`,
-  password: "test123"
-};
-
 describe('SAMS Backend API Tests', () => {
   
   describe('Marks Calculation Logic (80-20 Rule)', () => {
@@ -48,21 +38,41 @@ describe('SAMS Backend API Tests', () => {
 
   describe('Authentication Endpoints', () => {
     test('POST /api/auth/register/student - should register a new student', async () => {
+      const timestamp = Date.now();
       const res = await request(app)
         .post('/api/auth/register/student')
-        .send(testStudent);
+        .send({
+          name: "Test Student",
+          rollNumber: `TEST${timestamp}`,
+          branch: "IT",
+          semester: 3,
+          email: `test${timestamp}@test.com`,
+          password: "test123"
+        });
       expect(res.statusCode).toBe(200);
       expect(res.body.user).toHaveProperty('role', 'student');
     });
 
     test('POST /api/auth/login - should login with correct credentials', async () => {
-      // First register
-      await request(app).post('/api/auth/register/student').send(testStudent);
+      const timestamp = Date.now();
+      const email = `test${timestamp}@test.com`;
+      
+      // Register first
+      await request(app)
+        .post('/api/auth/register/student')
+        .send({
+          name: "Test Student",
+          rollNumber: `TEST${timestamp}`,
+          branch: "IT",
+          semester: 3,
+          email: email,
+          password: "test123"
+        });
       
       const res = await request(app)
         .post('/api/auth/login')
         .send({
-          email: "test@test.com",
+          email: email,
           password: "test123",
           role: "student"
         });
@@ -71,10 +81,25 @@ describe('SAMS Backend API Tests', () => {
     });
 
     test('POST /api/auth/login - should fail with wrong password', async () => {
+      const timestamp = Date.now();
+      const email = `test${timestamp}@test.com`;
+      
+      // Register first
+      await request(app)
+        .post('/api/auth/register/student')
+        .send({
+          name: "Test Student",
+          rollNumber: `TEST${timestamp}`,
+          branch: "IT",
+          semester: 3,
+          email: email,
+          password: "test123"
+        });
+      
       const res = await request(app)
         .post('/api/auth/login')
         .send({
-          email: "test@test.com",
+          email: email,
           password: "wrongpassword",
           role: "student"
         });
